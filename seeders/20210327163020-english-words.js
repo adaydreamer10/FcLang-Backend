@@ -19,7 +19,9 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
-        { word: "Home", createdAt: new Date(), updatedAt: new Date() },
+        { word: "Home", 
+        createdAt: new Date(), 
+        updatedAt: new Date() },
         {
           word: "Hi",
           createdAt: new Date(),
