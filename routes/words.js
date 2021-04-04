@@ -7,6 +7,17 @@ const Spanish = models.Spanish;
 const German = models.German;
 const router = express.Router();
 
+
+router.get("/random", (req, res, next) => {
+  English.findOne({order: sequelize.literal('random()'),
+  include: [models.Spanish,models.German]
+})
+    .then(word => {
+      res.status(200).json(word);
+    })
+    .catch(next);
+});
+
 // shows specific user, still to be populated with requests and companies
 router.get("/:id", (req, res, next) => {
     English.findByPk(req.params.id ,{ include: [models.Spanish,models.German] })
@@ -19,14 +30,7 @@ router.get("/:id", (req, res, next) => {
  
   // getting random word from english table
 
-  router.get("/random", (req, res, next) => {
-    English.findAll({ order:"random()" ,limit:1 })
-    
-      .then(word => {
-        res.status(200).json(word);
-      })
-      .catch(next);
-  });
+  
 
   router.post("/add",async(req,res,next)=>{
       console.log(req.body,"hello")
