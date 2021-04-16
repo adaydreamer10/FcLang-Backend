@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class English extends Model {
+  class German extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,15 +11,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      English.hasOne(models.Spanish,{foreignKey:"englishId"});
-      English.hasOne(models.German,{foreignKey:"englishId"});
+      German.belongsTo(models.English,{foreignKey:"englishId"})
     }
   };
-  English.init({
-    word: DataTypes.STRING
+  German.init({
+    word: DataTypes.STRING,
+    englishId: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'English',
+    modelName: 'German',
   });
-  return English;
+  return German;
 };
