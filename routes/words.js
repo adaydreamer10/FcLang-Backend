@@ -18,12 +18,15 @@ router.get("/random", (req, res, next) => {
     .catch(next);
 });
 
+
 // shows specific user, still to be populated with requests and companies
 router.get("/:id", (req, res, next) => {
     English.findByPk(req.params.id ,{ include: [models.Spanish,models.German] })
-    
       .then(word => {
-        res.status(200).json(word);
+        English.count().then((countNumber)=>{
+          res.status(200).json({data:word,numberOfwords:countNumber});
+        });
+       
       })
       .catch(next);
   });
